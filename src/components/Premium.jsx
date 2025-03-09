@@ -53,35 +53,35 @@ const Premium = () => {
   return isUserPremium ? (
     "You're are already a premium user"
   ) : (
-    <div className="m-10">
-      <div className="flex w-full">
-        <div className="card bg-base-300 rounded-box grid h-80 flex-grow place-items-center">
-          <h1 className="font-bold text-3xl">Silver Membership</h1>
-          <ul>
-            <li> - Chat with other people</li>
-            <li> - 100 connection Requests per day</li>
-            <li> - Blue Tick</li>
-            <li> - 3 months</li>
+    <div className="m-4 sm:m-10">
+      <div className="flex flex-col md:flex-row w-full gap-6">
+        <div className="card bg-base-300 rounded-box grid h-80 flex-grow place-items-center p-6">
+          <h1 className="font-bold text-2xl md:text-3xl">Silver Membership</h1>
+          <ul className="text-sm md:text-base">
+            <li>- Chat with other people</li>
+            <li>- 100 connection Requests per day</li>
+            <li>- Blue Tick</li>
+            <li>- 3 months</li>
           </ul>
           <button
-            onClick={() => handleBuyClick("gold")}
-            className="btn btn-secondary"
+            onClick={() => handleBuyClick("silver")}
+            className="btn btn-secondary px-6 py-2 text-sm md:text-base"
           >
             Buy Silver
           </button>
         </div>
-        <div className="divider divider-horizontal">OR</div>
-        <div className="card bg-base-300 rounded-box grid h-80 flex-grow place-items-center">
-          <h1 className="font-bold text-3xl">Gold Membership</h1>
-          <ul>
-            <li> - Chat with other people</li>
-            <li> - Inifiniye connection Requests per day</li>
-            <li> - Blue Tick</li>
-            <li> - 6 months</li>
+        <div className="divider md:divider-horizontal">OR</div>
+        <div className="card bg-base-300 rounded-box grid h-80 flex-grow place-items-center p-6">
+          <h1 className="font-bold text-2xl md:text-3xl">Gold Membership</h1>
+          <ul className="text-sm md:text-base">
+            <li>- Chat with other people</li>
+            <li>- Infinite connection Requests per day</li>
+            <li>- Blue Tick</li>
+            <li>- 6 months</li>
           </ul>
           <button
             onClick={() => handleBuyClick("gold")}
-            className="btn btn-primary"
+            className="btn btn-primary px-6 py-2 text-sm md:text-base"
           >
             Buy Gold
           </button>

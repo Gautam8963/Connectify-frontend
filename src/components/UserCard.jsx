@@ -13,12 +13,15 @@ const UserCard = ({ user }) => {
         BASE_URL + "/request/send/" + status + "/" + userId,
         {},
         { withCredentials: true }
+        
       );
       dispatch(removeUserFromFeed(userId));
-    } catch (err) {}
+    } catch (err) {
+        console.error("Error in handleSendRequest:", err.response?.data || err.message);    }
   };
 
   return (
+    
     <div className="card bg-base-300 w-96 shadow-xl">
       <figure>
         <img src={user.photoUrl} alt="photo" />
