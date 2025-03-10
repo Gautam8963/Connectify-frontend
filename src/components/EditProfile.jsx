@@ -45,88 +45,65 @@ const EditProfile = ({ user }) => {
 
     return (
         <>
-            <div className="flex justify-center my-10">
-                <div className="flex justify-center mx-10">
-                    <div className="card bg-base-300 w-96 shadow-xl">
+            <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-6">
+                <div className="flex justify-center mx-4 w-full max-w-lg">
+                    <div className="card bg-white w-full shadow-xl border border-gray-200 rounded-2xl">
                         <div className="card-body">
-                            <h2 className="card-title justify-center">Edit Profile</h2>
+                            <h2 className="card-title justify-center text-2xl font-bold text-gray-800">Edit Profile</h2>
                             <div>
-                                <label className="form-control w-full max-w-xs my-2">
-                                    <div className="label">
-                                        <span className="label-text">First Name:</span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        value={firstName}
-                                        className="input input-bordered w-full max-w-xs"
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                </label>
-                                <label className="form-control w-full max-w-xs my-2">
-                                    <label className="form-control w-full max-w-xs my-2">
+                                {[{
+                                    label: "First Name:", value: firstName, onChange: setFirstName
+                                }, {
+                                    label: "Last Name:", value: lastName, onChange: setLastName
+                                }, {
+                                    label: "Photo URL:", value: photoUrl, onChange: setPhotoUrl
+                                }, {
+                                    label: "Age:", value: age, onChange: setAge
+                                }].map(({ label, value, onChange }) => (
+                                    <label className="form-control w-full my-2" key={label}>
                                         <div className="label">
-                                            <span className="label-text">Last Name:</span>
+                                            <span className="label-text">{label}</span>
                                         </div>
                                         <input
                                             type="text"
-                                            value={lastName}
-                                            className="input input-bordered w-full max-w-xs"
-                                            onChange={(e) => setLastName(e.target.value)}
+                                            value={value}
+                                            className="input input-bordered w-full"
+                                            onChange={(e) => onChange(e.target.value)}
                                         />
                                     </label>
-                                    <div className="label">
-                                        <span className="label-text">Photo URL :</span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        value={photoUrl}
-                                        className="input input-bordered w-full max-w-xs"
-                                        onChange={(e) => setPhotoUrl(e.target.value)}
-                                    />
-                                </label>
-                                <label className="form-control w-full max-w-xs my-2">
-                                    <div className="label">
-                                        <span className="label-text">Age:</span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        value={age}
-                                        className="input input-bordered w-full max-w-xs"
-                                        onChange={(e) => setAge(e.target.value)}
-                                    />
-                                </label>
-                                <label className="form-control w-full max-w-xs my-2">
+                                ))}
+
+                                <label className="form-control w-full my-2">
                                     <div className="label">
                                         <span className="label-text">Gender:</span>
                                     </div>
                                     <select
                                         value={gender}
                                         onChange={(e) => setGender(e.target.value)}
-                                        className="select select-bordered w-full max-w-xs"
+                                        className="select select-bordered w-full"
                                     >
-                                        <option value="" disabled>
-                                            Select Gender
-                                        </option>
+                                        <option value="" disabled>Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="other">Others</option>
                                     </select>
                                 </label>
-                                <label className="form-control w-full max-w-xs my-2">
+
+                                <label className="form-control w-full my-2">
                                     <div className="label">
                                         <span className="label-text">About:</span>
                                     </div>
                                     <input
                                         type="text"
                                         value={about}
-                                        className="input input-bordered w-full max-w-xs"
+                                        className="input input-bordered w-full"
                                         onChange={(e) => setAbout(e.target.value)}
                                     />
                                 </label>
                             </div>
                             <p className="text-red-500">{error}</p>
-                            <div className="card-actions justify-center m-2">
-                                <button className="btn btn-primary" onClick={saveProfile}>
+                            <div className="card-actions justify-center mt-4">
+                                <button className="btn btn-primary w-full" onClick={saveProfile}>
                                     Save Profile
                                 </button>
                             </div>
@@ -138,6 +115,7 @@ const EditProfile = ({ user }) => {
                     user={{ firstName, lastName, photoUrl, age, gender, about }}
                 ></UserCardLook>
             </div>
+
             {showToast && (
                 <div className="toast toast-top toast-center">
                     <div className="alert alert-success">

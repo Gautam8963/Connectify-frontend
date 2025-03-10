@@ -47,40 +47,41 @@ const Requests = () => {
           request.fromUserId;
 
         return (
-          <div
-            key={_id}
-            className=" flex justify-between items-center m-4 p-4 rounded-lg bg-base-300  mx-auto"
-          >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full"
-                src={photoUrl}
-              />
-            </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-            </div>
-            <div>
-              <button
-                className="btn btn-primary mx-2"
-                onClick={() => reviewRequest("rejected", request._id)}
-              >
-                Reject
-              </button>
-              <button
-                className="btn btn-secondary mx-2"
-                onClick={() => reviewRequest("accepted", request._id)}
-              >
-                Accept
-              </button>
-            </div>
-          </div>
-        );
+<div
+  key={_id}
+  className="flex flex-col md:flex-row items-center md:justify-between gap-4 p-6 rounded-2xl shadow-lg bg-white border border-gray-200 mx-4 my-4 max-w-3xl mx-auto"
+>
+  <div className="flex-shrink-0">
+    <img
+      alt="photo"
+      className="w-24 h-24 rounded-full border-4 border-blue-400 shadow-md"
+      src={photoUrl}
+    />
+  </div>
+
+  <div className="text-center md:text-left flex-grow">
+    <h2 className="font-bold text-2xl text-gray-800">{firstName + " " + lastName}</h2>
+    {age && gender && (
+      <p className="text-sm text-gray-600 mt-1">{age + ", " + gender}</p>
+    )}
+    <p className="text-gray-500 mt-2">{about}</p>
+  </div>
+
+  <div className="flex gap-2 mt-4 md:mt-0">
+    <button
+      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all"
+      onClick={() => reviewRequest("rejected", request._id)}
+    >
+      Reject
+    </button>
+    <button
+      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all"
+      onClick={() => reviewRequest("accepted", request._id)}
+    >
+      Accept
+    </button>
+  </div>
+</div>        );
       })}
     </div>
   );

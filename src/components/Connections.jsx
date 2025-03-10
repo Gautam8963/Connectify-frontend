@@ -39,29 +39,32 @@ const Connections = () => {
           const { _id, firstName, lastName, photoUrl, age, gender, about } =
             connection;
   
-          return (
-            <div
-              key={_id}
-              className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
-            >
-              <div>
-                <img
-                  alt="photo"
-                  className="w-20 h-20 rounded-full object-cover"
-                  src={photoUrl}
-                />
-              </div>
-              <div className="text-left mx-4 ">
-                <h2 className="font-bold text-xl">
-                  {firstName + " " + lastName}
-                </h2>
-                {age && gender && <p>{age + ", " + gender}</p>}
-                <p>{about}</p>
-              </div>
-              <Link to={"/chat/" + _id}>
-                <button className="btn btn-primary">Chat</button>
-              </Link>
+          return (<div
+            key={_id}
+            className="flex flex-col md:flex-row items-center gap-4 p-6 rounded-2xl shadow-lg bg-white border border-gray-200 w-full max-w-3xl mx-auto"
+          >
+            <div className="flex-shrink-0">
+              <img
+                alt="photo"
+                className="w-24 h-24 rounded-full object-cover border-4 border-blue-400 shadow-md"
+                src={photoUrl}
+              />
             </div>
+          
+            <div className="text-center md:text-left flex-grow">
+              <h2 className="font-bold text-2xl text-gray-800">{firstName + " " + lastName}</h2>
+              {age && gender && (
+                <p className="text-sm text-gray-600 mt-1">{age + ", " + gender}</p>
+              )}
+              <p className="text-gray-500 mt-2">{about}</p>
+            </div>
+          
+            <Link to={"/chat/" + _id}>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all">
+                Chat
+              </button>
+            </Link>
+          </div>
           );
         })}
       </div>
