@@ -20,32 +20,37 @@ const UserCard = ({ user }) => {
         console.error("Error in handleSendRequest:", err.response?.data || err.message);    }
   };
 
-  return (
-    
-    <div className="card bg-base-300 w-96 shadow-xl">
+  return (<div className="card bg-gray-100 w-96 rounded-xl shadow-lg border"> {/* Added subtle gray background */}
+    <div className="relative">
       <figure>
-        <img src={user.photoUrl} alt="photo" />
+        <img src={user.photoUrl} alt="photo" className="rounded-t-xl w-full h-80 object-cover" />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
-        {age && gender && <p>{age + ", " + gender}</p>}
-        <p>{about}</p>
-        <div className="card-actions justify-center my-4">
-          <button
-            className="btn btn-primary"
-            onClick={() => handleSendRequest("ignored", _id)}
-          >
-            Ignore
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={() => handleSendRequest("interested", _id)}
-          >
-            Interested
-          </button>
-        </div>
+      <div className="absolute top-4 left-4 bg-white bg-opacity-80 rounded-full p-2">
+        <h2 className="text-xl font-semibold">{firstName}</h2>
+        {age && <p className="text-sm">{age}</p>}
       </div>
     </div>
+    <div className="card-body p-6">
+      <p className="text-sm text-gray-600 mb-2">
+        Your friend Emily and 3 others recommended<br />
+        {firstName}'s profile for you!
+      </p>
+      <div className="flex justify-between items-center mt-4">
+        <button
+          className="btn btn-circle btn-outline btn-md text-red-500 border-2 border-red-500 hover:bg-red-100 hover:text-red-600" // Increased size and hover effect
+          onClick={() => handleSendRequest("ignored", _id)}
+        >
+          X
+        </button>
+        <button
+          className="btn btn-circle btn-warning btn-md hover:scale-105" // Increased size and hover scale
+          onClick={() => handleSendRequest("interested", _id)}
+        >
+          ★
+        </button>
+      </div>
+    </div>
+  </div>
   );
 };
 export default UserCard;

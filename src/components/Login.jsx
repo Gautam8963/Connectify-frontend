@@ -48,184 +48,90 @@ const Login = () => {
   };
 
   return (
-    // <div className="flex justify-center my-10">
-    //   <div className="card bg-base-300 w-96 shadow-xl">
-    //     <div className="card-body">
-    //       <h2 className="card-title justify-center">
-    //         {isLoginForm ? "Login" : "Sign Up"}
-    //       </h2>
-    //       <div>
-    //         {!isLoginForm && (
-    //           <>
-    //             <label className="form-control w-full max-w-xs my-2">
-    //               <div className="label">
-    //                 <span className="label-text">First Name</span>
-    //               </div>
-    //               <input
-    //                 type="text"
-    //                 value={firstName}
-    //                 className="input input-bordered w-full max-w-xs"
-    //                 onChange={(e) => setFirstName(e.target.value)}
-    //               />
-    //             </label>
-    //             <label className="form-control w-full max-w-xs my-2">
-    //               <div className="label">
-    //                 <span className="label-text">Last Name</span>
-    //               </div>
-    //               <input
-    //                 type="text"
-    //                 value={lastName}
-    //                 className="input input-bordered w-full max-w-xs"
-    //                 onChange={(e) => setLastName(e.target.value)}
-    //               />
-    //             </label>
-    //           </>
-    //         )}
-    //         <label className="form-control w-full max-w-xs my-2">
-    //           <div className="label">
-    //             <span className="label-text">Email ID:</span>
-    //           </div>
-    //           <input
-    //             type="text"
-    //             value={emailId}
-    //             className="input input-bordered w-full max-w-xs"
-    //             onChange={(e) => setEmailId(e.target.value)}
-    //           />
-    //         </label>
-    //         <label className="form-control w-full max-w-xs my-2">
-    //           <div className="label">
-    //             <span className="label-text">Password</span>
-    //           </div>
-    //           <input
-    //             type="password"
-    //             value={password}
-    //             className="input input-bordered w-full max-w-xs"
-    //             onChange={(e) => setPassword(e.target.value)}
-    //           />
-    //         </label>
-    //       </div>
-    //       <p className="text-red-500">{error}</p>
-    //       <div className="card-actions justify-center m-2">
-    //         <button
-    //           className="btn btn-primary"
-    //           onClick={isLoginForm ? handleLogin : handleSignUp}
-    //         >
-    //           {isLoginForm ? "Login" : "Sign Up"}
-    //         </button>
-    //       </div>
-
-    //       <p
-    //         className="m-auto cursor-pointer py-2"
-    //         onClick={() => setIsLoginForm((value) => !value)}
-    //       >
-    //         {isLoginForm
-    //           ? "New User? Signup Here"
-    //           : "Existing User? Login Here"}
-    //       </p>
-    //     </div>
-    //   </div>
-    // </div>
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 p-4">
-    <motion.div
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="card bg-base-300 w-full max-w-md shadow-xl"
-    >
-      <div className="card-body">
-        <h2 className="card-title justify-center text-2xl">
-          {isLoginForm ? 'Login' : 'Sign Up'}
-        </h2>
-        <div>
-          <AnimatePresence>
-            {!isLoginForm && (
-              <motion.div
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 100 }}
-                transition={{ duration: 0.3 }}
-              >
-                <label className="form-control w-full my-2">
-                  <div className="label">
-                    <span className="label-text">First Name</span>
-                  </div>
-                  <input
-                    type="text"
-                    value={firstName}
-                    placeholder="Enter your first name"
-                    className="input input-bordered w-full"
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </label>
-                <label className="form-control w-full my-2">
-                  <div className="label">
-                    <span className="label-text">Last Name</span>
-                  </div>
-                  <input
-                    type="text"
-                    value={lastName}
-                    placeholder="Enter your last name"
-                    className="input input-bordered w-full"
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </label>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <label className="form-control w-full my-2">
-            <div className="label">
-              <span className="label-text">Email ID:</span>
-            </div>
-            <div className="input-group">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-pink-500 to-yellow-200 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="card bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden"
+      >
+        <div className="card-body p-8">
+          <h2 className="card-title justify-center text-3xl font-bold mb-6 text-pink-600">
+            {isLoginForm ? 'Login' : 'Sign Up'}
+          </h2>
+          <div>
+            <AnimatePresence>
+              {!isLoginForm && (
+                <motion.div
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 100 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <label className="form-control w-full mb-4">
+                    <input
+                      type="text"
+                      value={firstName}
+                      placeholder="First Name"
+                      className="input input-bordered w-full rounded-full bg-pink-50 focus:ring-pink-300 focus:border-pink-300" // Added color to input
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </label>
+                  <label className="form-control w-full mb-4">
+                    <input
+                      type="text"
+                      value={lastName}
+                      placeholder="Last Name"
+                      className="input input-bordered w-full rounded-full bg-pink-50 focus:ring-pink-300 focus:border-pink-300" // Added color to input
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </label>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <label className="form-control w-full mb-4">
               <input
                 type="text"
                 value={emailId}
-                placeholder="Enter your email"
-                className="input input-bordered w-full"
+                placeholder="Email"
+                className="input input-bordered w-full rounded-full bg-pink-50 focus:ring-pink-300 focus:border-pink-300" // Added color to input
                 onChange={(e) => setEmailId(e.target.value)}
               />
-            </div>
-          </label>
-          <label className="form-control w-full my-2">
-            <div className="label">
-              <span className="label-text">Password</span>
-            </div>
-            <div className="input-group">
+            </label>
+            <label className="form-control w-full mb-6"> {/* increased margin to mb-6 */}
               <input
                 type="password"
                 value={password}
-                placeholder="Enter your password"
-                className="input input-bordered w-full"
+                placeholder="Password"
+                className="input input-bordered w-full rounded-full bg-pink-50 focus:ring-pink-300 focus:border-pink-300" // Added color to input
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </div>
-          </label>
-        </div>
-        {error && (
-          <div className="alert alert-error my-2">
-            <span>{error}</span>
+            </label>
           </div>
-        )}
-        <div className="card-actions justify-center m-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn btn-primary w-full"
-            onClick={isLoginForm ? handleLogin : handleSignUp}
+          {error && (
+            <div className="alert alert-error my-2 rounded-full">
+              <span>{error}</span>
+            </div>
+          )}
+          <div className="card-actions justify-center mt-6">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn btn-primary w-full rounded-full bg-pink-600 border-none hover:bg-pink-700 text-white"
+              onClick={isLoginForm ? handleLogin : handleSignUp}
+            >
+              {isLoginForm ? 'Login' : 'Sign Up'}
+            </motion.button>
+          </div>
+          <button
+            className="btn btn-link w-full mt-4 text-pink-600"
+            onClick={() => setIsLoginForm((value) => !value)}
           >
-            {isLoginForm ? 'Login' : 'Sign Up'}
-          </motion.button>
+            {isLoginForm ? 'New User? Sign Up' : 'Already have an account? Login'}
+          </button>
         </div>
-        <button
-          className="btn btn-link w-full"
-          onClick={() => setIsLoginForm((value) => !value)}
-        >
-          {isLoginForm ? 'New User? Signup Here' : 'Existing User? Login Here'}
-        </button>
-      </div>
-    </motion.div>
-  </div>
-
+      </motion.div>
+    </div>
   );
 };
 export default Login;
