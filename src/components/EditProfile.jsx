@@ -1,10 +1,10 @@
 import { useState } from "react";
-import UserCard from "./UserCard";
-import UserCardLook from "./userCardLook"
+import UserCardLook from "./userCardLook";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);
@@ -16,10 +16,11 @@ const EditProfile = ({ user }) => {
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const [showToast, setShowToast] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const saveProfile = async () => {
-        //Clear Errors
         setError("");
+        setIsLoading(true);
         try {
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
@@ -40,90 +41,188 @@ const EditProfile = ({ user }) => {
             }, 3000);
         } catch (err) {
             setError(err.response.data);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <>
-            <div className="flex flex-col lg:flex-row justify-center items-center my-10 gap-6">
-                <div className="flex justify-center mx-4 w-full max-w-lg">
-                    <div className="card bg-white w-full shadow-xl border border-gray-200 rounded-2xl">
-                        <div className="card-body">
-                            <h2 className="card-title justify-center text-2xl font-bold text-gray-800">Edit Profile</h2>
-                            <div>
-                                {[{
-                                    label: "First Name:", value: firstName, onChange: setFirstName
-                                }, {
-                                    label: "Last Name:", value: lastName, onChange: setLastName
-                                }, {
-                                    label: "Photo URL:", value: photoUrl, onChange: setPhotoUrl
-                                }, {
-                                    label: "Age:", value: age, onChange: setAge
-                                }].map(({ label, value, onChange }) => (
-                                    <label className="form-control w-full my-2" key={label}>
-                                        <div className="label">
-                                            <span className="label-text">{label}</span>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            value={value}
-                                            className="input input-bordered w-full"
-                                            onChange={(e) => onChange(e.target.value)}
-                                        />
-                                    </label>
-                                ))}
-
-                                <label className="form-control w-full my-2">
-                                    <div className="label">
-                                        <span className="label-text">Gender:</span>
-                                    </div>
-                                    <select
-                                        value={gender}
-                                        onChange={(e) => setGender(e.target.value)}
-                                        className="select select-bordered w-full"
-                                    >
-                                        <option value="" disabled>Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Others</option>
-                                    </select>
+        <div className="flex flex-col lg:flex-row justify-center items-start min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-4 py-10">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-4"
+            >
+                <div className="card w-full rounded-2xl shadow-xl bg-white overflow-hidden border border-indigo-100">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 h-2"></div>
+                    </div>
+                    
+                    <div className="card-body p-6 sm:p-8">
+                        <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                            Edit Your Profile
+                        </h2>
+                        
+                        <div className="space-y-4">
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">First Name</span>
                                 </label>
-
-                                <label className="form-control w-full my-2">
-                                    <div className="label">
-                                        <span className="label-text">About:</span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        value={about}
-                                        className="input input-bordered w-full"
-                                        onChange={(e) => setAbout(e.target.value)}
-                                    />
+                                <input
+                                    type="text"
+                                    value={firstName}
+                                    placeholder="Your first name"
+                                    className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </div>
+                            
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">Last Name</span>
                                 </label>
+                                <input
+                                    type="text"
+                                    value={lastName}
+                                    placeholder="Your last name"
+                                    className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
                             </div>
-                            <p className="text-red-500">{error}</p>
-                            <div className="card-actions justify-center mt-4">
-                                <button className="btn btn-primary w-full" onClick={saveProfile}>
-                                    Save Profile
-                                </button>
+                            
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">Profile Photo URL</span>
+                                </label>
+                                <input
+                                    type="url"
+                                    value={photoUrl}
+                                    placeholder="https://example.com/your-photo.jpg"
+                                    className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                    onChange={(e) => setPhotoUrl(e.target.value)}
+                                />
                             </div>
+                            
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">Age</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    value={age}
+                                    placeholder="Your age"
+                                    className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                    onChange={(e) => setAge(e.target.value)}
+                                />
+                            </div>
+                            
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">Gender</span>
+                                </label>
+                                <select
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}
+                                    className="select select-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                >
+                                    <option value="" disabled>Select your gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">About</span>
+                                </label>
+                                <textarea
+                                    value={about}
+                                    placeholder="Tell other developers about yourself, your interests and skills..."
+                                    className="textarea textarea-bordered w-full h-24 rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                    onChange={(e) => setAbout(e.target.value)}
+                                ></textarea>
+                            </div>
+                        </div>
+                        
+                        {error && (
+                            <motion.div 
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="alert bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mt-6"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                </svg>
+                                <span className="text-sm">{error}</span>
+                            </motion.div>
+                        )}
+                        
+                        <div className="card-actions mt-8">
+                            <motion.button
+                                whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.2)" }}
+                                whileTap={{ scale: 0.98 }}
+                                className="btn w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-none rounded-lg py-3 h-12 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+                                onClick={saveProfile}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <span className="loading loading-spinner loading-sm mr-2"></span>
+                                        Saving Profile...
+                                    </>
+                                ) : (
+                                    'Save Profile'
+                                )}
+                            </motion.button>
                         </div>
                     </div>
                 </div>
+            </motion.div>
 
-                <UserCardLook
-                    user={{ firstName, lastName, photoUrl, age, gender, about }}
-                ></UserCardLook>
-            </div>
-
-            {showToast && (
-                <div className="toast toast-top toast-center">
-                    <div className="alert alert-success">
-                        <span>Profile saved successfully.</span>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                className="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-4 mt-8 lg:mt-0"
+            >
+                <div className="card w-full rounded-2xl shadow-xl bg-white overflow-hidden border border-indigo-100">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 h-2"></div>
+                    </div>
+                    
+                    <div className="card-body p-6 sm:p-8">
+                        <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                            Profile Preview
+                        </h2>
+                        
+                        <UserCardLook
+                            user={{ firstName, lastName, photoUrl, age, gender, about }}
+                        />
                     </div>
                 </div>
-            )}
-        </>
+            </motion.div>
+
+            <AnimatePresence>
+                {showToast && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: -50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -50 }}
+                        className="toast toast-top toast-center z-50"
+                    >
+                        <div className="alert shadow-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white border-none p-4 rounded-lg">
+                            <div className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span className="font-medium ml-2">Profile saved successfully!</span>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
+
 export default EditProfile;
