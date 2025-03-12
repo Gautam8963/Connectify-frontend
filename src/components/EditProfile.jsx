@@ -17,7 +17,27 @@ const EditProfile = ({ user }) => {
     const dispatch = useDispatch();
     const [showToast, setShowToast] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [inputs, setInputs] = useState(user.skills?.length ? user.skills : ['']);
+    // Add a new input field
+    const addInput = () => {
+        setInputs([...inputs, '']);
+    };
 
+    // Update the value of a specific input
+    const handleInputChange = (index, value) => {
+        const newInputs = [...inputs];
+        newInputs[index] = value;
+        setInputs(newInputs);
+    };
+
+    // Remove an input field
+    const removeInput = (index) => {
+        const newInputs = [...inputs];
+        newInputs.splice(index, 1);
+        setInputs(newInputs);
+    };
+
+    // console.log(user)
     const saveProfile = async () => {
         setError("");
         setIsLoading(true);
@@ -31,6 +51,7 @@ const EditProfile = ({ user }) => {
                     age,
                     gender,
                     about,
+                    skills: inputs.filter(skill => skill.trim() !== '')
                 },
                 { withCredentials: true }
             );
@@ -58,12 +79,12 @@ const EditProfile = ({ user }) => {
                     <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 h-2"></div>
                     </div>
-                    
+
                     <div className="card-body p-6 sm:p-8">
                         <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Edit Your Profile
                         </h2>
-                        
+
                         <div className="space-y-4">
                             <div className="form-control w-full">
                                 <label className="label">
@@ -77,7 +98,7 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text text-gray-600 font-medium">Last Name</span>
@@ -90,7 +111,7 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setLastName(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text text-gray-600 font-medium">Profile Photo URL</span>
@@ -103,7 +124,7 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setPhotoUrl(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text text-gray-600 font-medium">Age</span>
@@ -116,7 +137,7 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setAge(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text text-gray-600 font-medium">Gender</span>
@@ -132,7 +153,43 @@ const EditProfile = ({ user }) => {
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            
+
+                            <div className="form-control w-full">
+                                <label className="label">
+                                    <span className="label-text text-gray-600 font-medium">SKILLS</span>
+                                </label>
+
+                                {inputs.map((input, index) => (
+                                    <div key={index} className="flex gap-2 mb-2">
+                                        <input
+                                            type="text"
+                                            value={input}
+                                            placeholder={`Skill ${index + 1}`}
+                                            className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                                            onChange={(e) => handleInputChange(index, e.target.value)}
+                                        />
+                                        {inputs.length > 1 && (
+                                            <button
+                                                type="button"
+                                                className="btn btn-outline btn-error"
+                                                onClick={() => removeInput(index)}
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+
+                                <button
+                                    type="button"
+                                    className="btn btn-outline btn-primary mt-2"
+                                    onClick={addInput}
+                                >
+                                    Add Skill
+                                </button>
+                            </div>
+
+
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text text-gray-600 font-medium">About</span>
@@ -145,9 +202,9 @@ const EditProfile = ({ user }) => {
                                 ></textarea>
                             </div>
                         </div>
-                        
+
                         {error && (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className="alert bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mt-6"
@@ -158,7 +215,7 @@ const EditProfile = ({ user }) => {
                                 <span className="text-sm">{error}</span>
                             </motion.div>
                         )}
-                        
+
                         <div className="card-actions mt-8">
                             <motion.button
                                 whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.2)" }}
@@ -191,14 +248,14 @@ const EditProfile = ({ user }) => {
                     <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 h-2"></div>
                     </div>
-                    
+
                     <div className="card-body p-6 sm:p-8">
                         <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                             Profile Preview
                         </h2>
-                        
+
                         <UserCardLook
-                            user={{ firstName, lastName, photoUrl, age, gender, about }}
+                            user={{ firstName, lastName, photoUrl, age, gender, about, skills: inputs.filter(skill => skill.trim() !== '') }}
                         />
                     </div>
                 </div>
@@ -206,7 +263,7 @@ const EditProfile = ({ user }) => {
 
             <AnimatePresence>
                 {showToast && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -50 }}

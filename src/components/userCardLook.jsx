@@ -23,7 +23,7 @@ const UserCardLook = ({ user }) => {
 
   // Generate a random skill set if not provided
   const defaultSkills = ["React", "Node.js", "JavaScript", "Python", "TypeScript"];
-  const displaySkills = skills.length > 0 ? skills : defaultSkills.slice(0, 3);
+  const displaySkills = skills.length > 0 ? user.skills : defaultSkills.slice(0, 3);
 
   return (
     <motion.div

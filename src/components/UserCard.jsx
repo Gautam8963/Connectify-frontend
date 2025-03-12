@@ -21,7 +21,7 @@ const UserCard = ({ user }) => {
     }
   };
 
-  // Generate a random skill set if not provided
+  // This will Generate a random skill set if not provided
   const defaultSkills = ["React", "Node.js", "JavaScript", "Python", "TypeScript"];
   const displaySkills = skills.length > 0 ? skills : defaultSkills.slice(0, 3);
 
@@ -82,6 +82,7 @@ const UserCard = ({ user }) => {
                 {skill}
               </span>
             ))}
+            {/* You have not added any skills */}
           </div>
         </div>
         
