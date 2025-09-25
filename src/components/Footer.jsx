@@ -7,7 +7,7 @@ const Footer = () => {
                 <h6 className="footer-title">Social</h6>
                 <div className="grid grid-flow-col gap-4">
                     <a
-                        href="https://github.com/Gautam8963"
+                        href="http://localhost:1111/github"
                         aria-label="GitHub"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >
@@ -22,7 +22,7 @@ const Footer = () => {
                         </svg>
                     </a>
                     <a
-                        href="https://www.linkedin.com/in/gautam-dhodi-848567237"
+                        href="http://localhost:1111/linkedin"
                         aria-label="LinkedIn"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >
@@ -37,7 +37,7 @@ const Footer = () => {
                         </svg>
                     </a>
                     <a
-                        href="https://x.com/GautamDhodi1"
+                        href="http://localhost:1111/twitter"
                         aria-label="Twitter"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >
