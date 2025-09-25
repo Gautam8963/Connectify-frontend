@@ -1,2 +1,1 @@
-export const BASE_URL =
-  location.hostname === "localhost" ? "http://localhost:1111" : "/api";
+export const BASE_URL = "https://connectify-backend-1-c1hv.onrender.com";
