@@ -120,7 +120,7 @@ const EditProfile = ({ user }) => {
                                 <input
                                     type="url"
                                     value={photoUrl}
-                                    placeholder="http://localhost:1111/your-photo.jpg"
+                                    placeholder= {BASE_URL + "/your-photo.jpg"}
                                     className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
                                     onChange={(e) => setPhotoUrl(e.target.value)}
                                 />

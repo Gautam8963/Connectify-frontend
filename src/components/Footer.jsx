@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import { BASE_URL } from "../utils/constants";
 const Footer = () => {
     return (
         <footer className="footer sm:footer-horizontal bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-100 p-6 ">
@@ -7,7 +8,7 @@ const Footer = () => {
                 <h6 className="footer-title">Social</h6>
                 <div className="grid grid-flow-col gap-4">
                     <a
-                        href="http://localhost:1111/github"
+                        href= {BASE_URL + "/github"}
                         aria-label="GitHub"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >
@@ -22,7 +23,7 @@ const Footer = () => {
                         </svg>
                     </a>
                     <a
-                        href="http://localhost:1111/linkedin"
+                        href= {BASE_URL + "/linkedin"}
                         aria-label="LinkedIn"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >
@@ -37,7 +38,7 @@ const Footer = () => {
                         </svg>
                     </a>
                     <a
-                        href="http://localhost:1111/twitter"
+                        href= {BASE_URL + "/twitter"}
                         aria-label="Twitter"
                         className="hover:text-indigo-600 transition-colors duration-300"
                     >

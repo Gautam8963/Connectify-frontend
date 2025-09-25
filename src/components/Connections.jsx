@@ -88,7 +88,7 @@ const Connections = () => {
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
                     <div className="avatar">
                       <div className="w-24 h-24 rounded-full ring ring-base-100 ring-offset-base-100 ring-offset-2">
-                        <img src={photoUrl || "http://localhost:1111/avatar?seed=" + firstName} alt={`${firstName} ${lastName}`} />
+                        <img src={photoUrl || BASE_URL + "/avatar?seed=" + firstName} alt={`${firstName} ${lastName}`} />
                       </div>
                     </div>
                   </div>
