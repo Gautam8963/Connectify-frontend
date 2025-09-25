@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-
+import React from 'react';
 const Footer = () => {
     return (
         <footer className="footer sm:footer-horizontal bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-100 p-6 ">

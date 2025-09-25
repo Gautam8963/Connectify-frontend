@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 // import NavBar from "./NavBar";
+import React from 'react';
 import NavBar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";

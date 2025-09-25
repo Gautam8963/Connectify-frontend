@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);

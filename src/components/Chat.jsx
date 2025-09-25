@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants";
 import { Send, ArrowLeft } from "lucide-react";
 import { formatDistanceToNow } from 'date-fns';
 import VideoCallButton from "./VideoCallButton";
+import React from 'react';
 
 const Chat = () => {
   const { targetUserId } = useParams();

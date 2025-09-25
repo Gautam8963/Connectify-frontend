@@ -5,6 +5,7 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
