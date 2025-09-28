@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
@@ -17,7 +17,8 @@ const Chat = () => {
   const [targetUser, setTargetUser] = useState(null);
   const user = useSelector((store) => store.user);
   const userId = user?._id;
-  const messagesEndRef = useState(null);
+  const messagesEndRef = useRef(null);
+  const navigate = useNavigate();
   // Video Calling feature
   const startVideoCall = () => {
     navigate(`/video-call/${targetUserId}`);
