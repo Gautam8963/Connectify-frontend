@@ -11,7 +11,7 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   const getFeed = async () => {
-    if (feed && feed.length > 0) return; // Added check to prevent unnecessary API calls if feed is already populated
+    if (feed && feed.length > 0) return;
 
     try {
       const res = await axios.get(BASE_URL + "/feed", {
@@ -19,8 +19,7 @@ const Feed = () => {
       });
       dispatch(addFeed(res?.data?.data));
     } catch (err) {
-      console.error("Feed Error:", err?.response?.data || err.message); // Improved error logging
-      // Optionally: Dispatch an action to handle feed error state in Redux
+      console.error("Feed Error:", err?.response?.data || err.message);
     }
   };
 
@@ -30,25 +29,37 @@ const Feed = () => {
 
   if (!feed) {
     return (
-      <div className="flex justify-center items-center min-h-screen"> {/* Full screen centering */}
-        <div className="loading loading-dots loading-lg text-primary"></div> {/* DaisyUI loading indicator */}
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <div className="loading loading-spinner loading-lg text-[#FF4458]"></div>
+          <p className="text-gray-500 text-sm">Finding your matches...</p>
+        </div>
       </div>
     );
   }
 
   if (feed.length <= 0) {
     return (
-      <div className="flex justify-center items-center min-h-screen"> {/* Full screen centering */}
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold text-base-content mb-4">No new developers found right now!</h1> {/* Styled message */}
-          <p className="text-base-content text-opacity-80">Check back later for more connections.</p> {/* Subtler secondary message */}
+      <div className="flex justify-center items-center min-h-screen px-4">
+        <div className="text-center max-w-md">
+          <div className="text-6xl mb-4">😔</div>
+          <h1 className="text-2xl font-bold text-gray-700 mb-2">No More Profiles</h1>
+          <p className="text-gray-500 mb-6">
+            You've seen everyone in your area! Check back later for new developers.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-3 tinder-gradient text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            Refresh Feed
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex justify-center p-6 sm:p-8 mt-6 sm:mt-10"> {/* Added padding and top margin for better spacing */}
+    <div className="flex justify-center p-4 sm:p-8 mt-6 sm:mt-10 min-h-screen">
       <UserCard user={feed[0]} />
     </div>
   );

@@ -1,1 +1,125 @@
 @import "tailwindcss";
+
+/* Tinder-Style Design System */
+:root {
+  /* Tinder Color Palette */
+  --tinder-primary: #FF4458;
+  --tinder-secondary: #FE3C72;
+  --tinder-accent: #FF6B6B;
+  --tinder-bg: #FAFAFA;
+  --tinder-card-bg: #FFFFFF;
+  --tinder-text: #424242;
+  --tinder-text-secondary: #757575;
+  --tinder-border: #E0E0E0;
+  
+  /* Gradients */
+  --tinder-gradient: linear-gradient(135deg, #FF4458 0%, #FE3C72 100%);
+  --tinder-gradient-soft: linear-gradient(135deg, #FF6B6B 0%, #FE3C72 100%);
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--tinder-bg);
+  color: var(--tinder-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Animations */
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes swipe-hint {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes heart-beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+/* Utility Classes */
+.tinder-gradient {
+  background: var(--tinder-gradient);
+}
+
+.tinder-gradient-soft {
+  background: var(--tinder-gradient-soft);
+}
+
+.tinder-shadow {
+  box-shadow: 0 4px 6px -1px rgba(255, 68, 88, 0.1), 
+              0 2px 4px -1px rgba(255, 68, 88, 0.06);
+}
+
+.tinder-shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(255, 68, 88, 0.1), 
+              0 4px 6px -2px rgba(255, 68, 88, 0.05);
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-card-appear {
+  animation: card-appear 0.4s ease-out;
+}
+
+.animate-heart-beat {
+  animation: heart-beat 0.6s ease-in-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--tinder-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tinder-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tinder-primary);
+}

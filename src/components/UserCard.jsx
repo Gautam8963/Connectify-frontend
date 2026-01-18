@@ -4,9 +4,10 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 import { motion } from 'framer-motion';
+import { X, Heart } from 'lucide-react';
 
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, photoUrl, age, gender, about, skills = [] } = user;
+  const { _id, firstName, lastName, photoUrl, age, gender, about, skills = [], matchScore } = user;
   const dispatch = useDispatch();
 
   const handleSendRequest = async (status, userId) => {
@@ -22,109 +23,113 @@ const UserCard = ({ user }) => {
     }
   };
 
-  // This will Generate a random skill set if not provided
+  // Generate default skills if not provided
   const defaultSkills = ["React", "Node.js", "JavaScript", "Python", "TypeScript"];
-  const displaySkills = skills.length > 0 ? skills : defaultSkills.slice(0, 3);
+  const displaySkills = skills.length > 0 ? skills.slice(0, 4) : defaultSkills.slice(0, 3);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4 }}
-      whileHover={{ y: -5 }}
-      className="w-full sm:w-96 overflow-hidden rounded-2xl shadow-lg bg-white border border-indigo-100"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9, y: -100 }}
+      transition={{ duration: 0.3 }}
+      className="w-full max-w-sm mx-auto animate-card-appear"
     >
-      <div className="relative">
-        {/* Profile Image */}
-        <div className="h-64 sm:h-80 w-full overflow-hidden">
+      {/* Main Card */}
+      <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
+        {/* Profile Image Container */}
+        <div className="relative h-[500px] sm:h-[550px] w-full overflow-hidden">
           {photoUrl ? (
             <img
               src={photoUrl}
               alt={`${firstName}'s profile`}
-              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+              className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white text-6xl font-bold">
+            <div className="w-full h-full tinder-gradient flex items-center justify-center">
+              <span className="text-white text-7xl font-bold">
                 {firstName?.charAt(0)}{lastName?.charAt(0)}
               </span>
             </div>
           )}
-          
-          {/* Gradient overlay at bottom of image */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-        </div>
-        
-        {/* User info banner */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <div className="flex justify-between items-end">
-            <div>
-              <h2 className="text-2xl font-bold">{firstName} {lastName}</h2>
-              {age && <p className="text-sm opacity-90">{age} years • {gender || 'Developer'}</p>}
+
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+          {/* User Info Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <div className="flex items-end justify-between mb-3">
+              <div>
+                <h2 className="text-3xl font-bold mb-1">
+                  {firstName} {lastName}
+                  {age && <span className="text-2xl font-normal ml-2">{age}</span>}
+                </h2>
+                {gender && (
+                  <p className="text-sm opacity-90 capitalize">
+                    {gender} • Developer
+                  </p>
+                )}
+              </div>
+
+              {/* Match Score Badge */}
+              {matchScore !== undefined && matchScore > 0 && (
+                <div className="bg-[#FF4458] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                  {matchScore}% Match
+                </div>
+              )}
             </div>
-            <div className="bg-indigo-600 text-white text-xs font-medium px-2 py-1 rounded-full">
-              98% Match
-            </div>
+
+            {/* Skills Pills */}
+            {displaySkills.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {displaySkills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/30"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* About (if exists) */}
+            {about && about !== "This is a default about of the user!" && (
+              <p className="text-sm opacity-90 line-clamp-2 mt-2">
+                {about}
+              </p>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="p-4 sm:p-6">
-        {/* Skills section */}
-        <div className="mb-4">
-          <p className="text-xs text-gray-500 mb-2">SKILLS</p>
-          <div className="flex flex-wrap gap-2">
-            {displaySkills.map((skill, index) => (
-              <span 
-                key={index} 
-                className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-medium rounded-full"
-              >
-                {skill}
-              </span>
-            ))}
-            {/* You have not added any skills */}
-          </div>
-        </div>
-        
-        {/* Recommendation */}
-        <div className="bg-indigo-50 rounded-lg p-3 mb-4">
-          <div className="flex items-center mb-2">
-            <div className="flex -space-x-2">
-              <div className="w-6 h-6 rounded-full bg-indigo-300 flex items-center justify-center text-white text-xs">E</div>
-              <div className="w-6 h-6 rounded-full bg-purple-300 flex items-center justify-center text-white text-xs">J</div>
-              <div className="w-6 h-6 rounded-full bg-indigo-400 flex items-center justify-center text-white text-xs">M</div>
-            </div>
-            <p className="text-xs text-gray-600 ml-2">
-              Emily and 3 others recommended this match
-            </p>
-          </div>
-          <p className="text-sm text-gray-700">
-            <span className="font-semibold">{firstName}</span> might be your perfect coding partner!
-          </p>
-        </div>
-        
-        {/* Action buttons */}
-        <div className="flex justify-between items-center gap-4">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-1 py-2 px-4 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            onClick={() => handleSendRequest("ignored", _id)}
-          >
-            Skip
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-1 py-2 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all"
-            onClick={() => handleSendRequest("interested", _id)}
-          >
-            Connect
-          </motion.button>
-        </div>
+      {/* Action Buttons */}
+      <div className="flex justify-center items-center gap-6 mt-6">
+        {/* Pass Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-16 h-16 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:border-gray-400"
+          onClick={() => handleSendRequest("ignored", _id)}
+        >
+          <X className="w-8 h-8 text-gray-500" strokeWidth={2.5} />
+        </motion.button>
+
+        {/* Like Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-20 h-20 rounded-full tinder-gradient flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 animate-heart-beat"
+          onClick={() => handleSendRequest("interested", _id)}
+        >
+          <Heart className="w-10 h-10 text-white fill-white" strokeWidth={0} />
+        </motion.button>
       </div>
+
+      {/* Swipe Hint Text */}
+      <p className="text-center text-xs text-gray-400 mt-4">
+        Swipe or tap to connect
+      </p>
     </motion.div>
   );
 };

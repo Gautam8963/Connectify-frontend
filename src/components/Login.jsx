@@ -49,22 +49,34 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-pink-50 via-white to-red-50 p-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="card w-full max-w-md rounded-2xl shadow-xl bg-white overflow-hidden border border-indigo-100"
+        className="card w-full max-w-md rounded-3xl shadow-2xl bg-white overflow-hidden border border-gray-100 animate-card-appear"
       >
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 h-2"></div>
+          <div className="absolute inset-0 tinder-gradient h-2"></div>
         </div>
-        
+
         <div className="card-body p-6 sm:p-10">
-          <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            {isLoginForm ? 'Connect with Devs' : 'Join the Community'}
-          </h2>
-          
+          {/* Logo/Title with Flame */}
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-4xl">🔥</span>
+              <h1 className="text-3xl sm:text-4xl font-bold text-[#FF4458]">
+                Connectify
+              </h1>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-700">
+              {isLoginForm ? 'Find Your Dev Match' : 'Join the Community'}
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              {isLoginForm ? 'Connect with developers worldwide' : 'Start your coding journey'}
+            </p>
+          </div>
+
           <div>
             <AnimatePresence mode="wait">
               {!isLoginForm && (
@@ -83,11 +95,11 @@ const Login = () => {
                       type="text"
                       value={firstName}
                       placeholder="Your first name"
-                      className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                      className="input input-bordered w-full rounded-xl border-gray-200 bg-white focus:border-[#FF4458] focus:ring-2 focus:ring-[#FF4458]/20 transition-all duration-200 text-gray-800"
                       onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
-                  
+
                   <div className="form-control w-full">
                     <label className="label">
                       <span className="label-text text-gray-600 font-medium">Last Name</span>
@@ -96,14 +108,14 @@ const Login = () => {
                       type="text"
                       value={lastName}
                       placeholder="Your last name"
-                      className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                      className="input input-bordered w-full rounded-xl border-gray-200 bg-white focus:border-[#FF4458] focus:ring-2 focus:ring-[#FF4458]/20 transition-all duration-200 text-gray-800"
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
-            
+
             <div className={`form-control w-full ${isLoginForm ? "" : "mt-4"}`}>
               <label className="label">
                 <span className="label-text text-gray-600 font-medium">Email</span>
@@ -112,11 +124,11 @@ const Login = () => {
                 type="email"
                 value={emailId}
                 placeholder="your.email@example.com"
-                className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                className="input input-bordered w-full rounded-xl border-gray-200 bg-white focus:border-[#FF4458] focus:ring-2 focus:ring-[#FF4458]/20 transition-all duration-200 text-gray-800"
                 onChange={(e) => setEmailId(e.target.value)}
               />
             </div>
-            
+
             <div className="form-control w-full mt-4">
               <label className="label">
                 <span className="label-text text-gray-600 font-medium">Password</span>
@@ -125,50 +137,50 @@ const Login = () => {
                 type="password"
                 value={password}
                 placeholder="••••••••"
-                className="input input-bordered w-full rounded-lg border-indigo-200 bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 transition-all duration-200 text-gray-800"
+                className="input input-bordered w-full rounded-xl border-gray-200 bg-white focus:border-[#FF4458] focus:ring-2 focus:ring-[#FF4458]/20 transition-all duration-200 text-gray-800"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
-          
+
           {error && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="alert bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mt-6"
+              className="alert bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mt-6 flex items-center"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
               <span className="text-sm">{error}</span>
             </motion.div>
           )}
-          
+
           <div className="card-actions mt-8">
             <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.2)" }}
+              whileHover={{ scale: 1.02, boxShadow: "0 20px 25px -5px rgba(255, 68, 88, 0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="btn w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-none rounded-lg py-3 h-12 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+              className="btn w-full tinder-gradient text-white border-none rounded-full py-3 h-14 font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={isLoginForm ? handleLogin : handleSignUp}
             >
               {isLoginForm ? 'Log In' : 'Create Account'}
             </motion.button>
           </div>
-          
+
           <div className="divider text-gray-400 text-sm my-6">OR</div>
-          
+
           <motion.button
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="btn btn-outline border-indigo-200 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-300 w-full rounded-lg font-medium"
+            className="btn btn-outline border-2 border-[#FF4458] text-[#FF4458] hover:bg-[#FF4458] hover:text-white hover:border-[#FF4458] w-full rounded-full font-semibold transition-all duration-300"
             onClick={() => setIsLoginForm((value) => !value)}
           >
             {isLoginForm ? 'Create a new account' : 'Already have an account?'}
           </motion.button>
-          
+
           {isLoginForm && (
-            <p className="text-center text-sm text-gray-500 mt-4">
-              Find your perfect coding partner
+            <p className="text-center text-sm text-gray-500 mt-6">
+              Swipe right on your coding career 💻
             </p>
           )}
         </div>

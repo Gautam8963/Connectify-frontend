@@ -36,16 +36,14 @@ const NavBar = () => {
   }, [dropdownOpen]);
 
   return (
-    <div className="sticky top-0 z-30 w-full backdrop-blur bg-white/90 border-b border-indigo-100 shadow-sm">
+    <div className="sticky top-0 z-30 w-full backdrop-blur bg-white/95 border-b border-gray-100 shadow-sm">
       <div className="max-w-4xl mx-auto px-4">
         <div className="navbar h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center flex-1">
-            <Link to="/" className="flex items-center">
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <Link to="/" className="flex items-center gap-1">
+              <span className="text-2xl">🔥</span>
+              <span className="text-xl sm:text-2xl font-bold text-[#FF4458]">
                 Connectify
-              </span>
-              <span className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs px-2 py-1 rounded-full ml-2">
-                Devs
               </span>
             </Link>
           </div>
@@ -67,7 +65,7 @@ const NavBar = () => {
           {user && (
             <div className="hidden sm:flex items-center gap-3 sm:gap-5">
               <div className="text-sm text-gray-600 font-medium">
-                Welcome, <span className="text-indigo-600 ml-1">{user.firstName}</span>
+                Welcome, <span className="text-[#FF4458] ml-1 font-semibold">{user.firstName}</span>
               </div>
               <div className="relative profile-dropdown">
                 <motion.div
@@ -75,70 +73,69 @@ const NavBar = () => {
                   whileTap={{ scale: 0.95 }}
                   tabIndex={0}
                   role="button"
-                  className="btn btn-circle avatar bg-white border-2 border-indigo-200 hover:border-indigo-400 p-1 transition-all duration-200"
+                  className="btn btn-circle avatar bg-white border-2 border-gray-200 hover:border-[#FF4458] p-1 transition-all duration-200"
                   style={{ width: 36, height: 36 }}
                   onClick={() => setDropdownOpen((open) => !open)}
                 >
                   {user.photoUrl ? (
                     <div className="w-full h-full rounded-full overflow-hidden" style={{ width: 32, height: 32 }}>
-                      <img 
-                        alt={`${user.firstName}'s profile photo`} 
-                        src={user.photoUrl} 
+                      <img
+                        alt={`${user.firstName}'s profile photo`}
+                        src={user.photoUrl}
                         className="object-cover w-full h-full"
                         style={{ width: '100%', height: '100%' }}
                       />
                     </div>
                   ) : (
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold" style={{ width: 32, height: 32, fontSize: '1rem' }}>
+                    <div className="w-full h-full rounded-full tinder-gradient flex items-center justify-center text-white font-bold" style={{ width: 32, height: 32, fontSize: '1rem' }}>
                       {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
                     </div>
                   )}
                 </motion.div>
                 {dropdownOpen && (
                   <div tabIndex={0} className="absolute right-0 mt-2 dropdown-content z-[1] w-64 overflow-hidden">
-                    <div className="shadow-xl rounded-xl text-indigo-600 bg-white border border-indigo-100">
-                      <div className="bg-gradient-to-r rounded-t-xl from-indigo-600 to-purple-600 px-4 py-3">
-                        <p className="text-white font-medium">{user.firstName} {user.lastName}</p>
-                        <p className="text-indigo-100 text-xs mt-1">{user.emailId}</p>
+                    <div className="shadow-xl rounded-xl bg-white border border-gray-100">
+                      <div className="tinder-gradient rounded-t-xl px-4 py-3">
+                        <p className="text-white font-semibold">{user.firstName} {user.lastName}</p>
+                        <p className="text-white/90 text-xs mt-1">{user.emailId}</p>
                       </div>
                       <ul className="menu p-2">
                         <li>
-                          <Link to="/profile" className="flex items-center px-4 py-2 hover:bg-indigo-50 rounded-lg group" onClick={() => setDropdownOpen(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                          <Link to="/profile" className="flex items-center px-4 py-2 hover:bg-red-50 rounded-lg group" onClick={() => setDropdownOpen(false)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4458]" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                             </svg>
-                            Profile
-                            <span className="ml-auto px-2 py-1 text-xs bg-indigo-500 text-white rounded-full">New</span>
+                            <span className="text-gray-700">Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to="/connections" className="flex items-center px-4 py-2 hover:bg-indigo-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                          <Link to="/connections" className="flex items-center px-4 py-2 hover:bg-red-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4458]" viewBox="0 0 20 20" fill="currentColor">
                               <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                             </svg>
-                            Connections
+                            <span className="text-gray-700">Connections</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to="/requests" className="flex items-center px-4 py-2 hover:bg-indigo-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                          <Link to="/requests" className="flex items-center px-4 py-2 hover:bg-red-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4458]" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd" />
                             </svg>
-                            Requests
+                            <span className="text-gray-700">Requests</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to="/premium" className="flex items-center px-4 py-2 hover:bg-indigo-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+                          <Link to="/premium" className="flex items-center px-4 py-2 hover:bg-red-50 rounded-lg" onClick={() => setDropdownOpen(false)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-[#FF4458]" viewBox="0 0 20 20" fill="currentColor">
                               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
-                            Premium
+                            <span className="text-gray-700">Premium</span>
                           </Link>
                         </li>
                         <div className="divider my-1"></div>
                         <li>
-                          <button 
-                            onClick={() => { handleLogout(); setDropdownOpen(false); }} 
+                          <button
+                            onClick={() => { handleLogout(); setDropdownOpen(false); }}
                             className="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg w-full"
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -167,11 +164,11 @@ const NavBar = () => {
                     {user.photoUrl ? (
                       <img src={user.photoUrl} alt="profile" className="w-10 h-10 rounded-full object-cover" />
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                      <div className="w-10 h-10 rounded-full tinder-gradient flex items-center justify-center text-white font-bold">
                         {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
                       </div>
                     )}
-                    <span className="font-semibold text-indigo-600">{user.firstName}</span>
+                    <span className="font-semibold text-[#FF4458]">{user.firstName}</span>
                   </div>
                   <button className="btn btn-ghost btn-circle" onClick={() => setMenuOpen(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
@@ -180,10 +177,10 @@ const NavBar = () => {
                   </button>
                 </div>
                 <nav className="flex-1 px-4 py-6 space-y-2">
-                  <Link to="/profile" className="block px-4 py-2 rounded-lg hover:bg-indigo-50 font-medium" onClick={() => setMenuOpen(false)}>Profile</Link>
-                  <Link to="/connections" className="block px-4 py-2 rounded-lg hover:bg-indigo-50 font-medium" onClick={() => setMenuOpen(false)}>Connections</Link>
-                  <Link to="/requests" className="block px-4 py-2 rounded-lg hover:bg-indigo-50 font-medium" onClick={() => setMenuOpen(false)}>Requests</Link>
-                  <Link to="/premium" className="block px-4 py-2 rounded-lg hover:bg-indigo-50 font-medium" onClick={() => setMenuOpen(false)}>Premium</Link>
+                  <Link to="/profile" className="block px-4 py-2 rounded-lg hover:bg-red-50 font-medium text-gray-700" onClick={() => setMenuOpen(false)}>Profile</Link>
+                  <Link to="/connections" className="block px-4 py-2 rounded-lg hover:bg-red-50 font-medium text-gray-700" onClick={() => setMenuOpen(false)}>Connections</Link>
+                  <Link to="/requests" className="block px-4 py-2 rounded-lg hover:bg-red-50 font-medium text-gray-700" onClick={() => setMenuOpen(false)}>Requests</Link>
+                  <Link to="/premium" className="block px-4 py-2 rounded-lg hover:bg-red-50 font-medium text-gray-700" onClick={() => setMenuOpen(false)}>Premium</Link>
                   <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="block w-full text-left px-4 py-2 rounded-lg hover:bg-red-50 text-red-600 font-medium mt-4">Logout</button>
                 </nav>
               </div>
