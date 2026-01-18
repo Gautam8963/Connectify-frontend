@@ -29,7 +29,7 @@ const Feed = () => {
 
   if (!feed) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center" style={{ minHeight: 'calc(100vh - 80px)' }}>
         <div className="flex flex-col items-center gap-4">
           <div className="loading loading-spinner loading-lg text-[#FF4458]"></div>
           <p className="text-gray-500 text-sm">Finding your matches...</p>
@@ -40,7 +40,7 @@ const Feed = () => {
 
   if (feed.length <= 0) {
     return (
-      <div className="flex justify-center items-center min-h-screen px-4">
+      <div className="flex justify-center items-center px-4" style={{ minHeight: 'calc(100vh - 80px)' }}>
         <div className="text-center max-w-md">
           <div className="text-6xl mb-4">😔</div>
           <h1 className="text-2xl font-bold text-gray-700 mb-2">No More Profiles</h1>
@@ -59,7 +59,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="flex justify-center p-4 sm:p-8 mt-6 sm:mt-10 min-h-screen">
+    <div className="flex justify-center items-center py-6" style={{ minHeight: 'calc(100vh - 80px)' }}>
       <UserCard user={feed[0]} />
     </div>
   );

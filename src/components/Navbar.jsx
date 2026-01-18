@@ -37,8 +37,8 @@ const NavBar = () => {
 
   return (
     <div className="sticky top-0 z-30 w-full backdrop-blur bg-white/95 border-b border-gray-100 shadow-sm">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="navbar h-16 sm:h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="navbar h-14 sm:h-16 flex items-center justify-between">
           <div className="flex items-center flex-1">
             <Link to="/" className="flex items-center gap-1">
               <span className="text-2xl">🔥</span>
